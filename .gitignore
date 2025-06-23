@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+.venv/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Data and results
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.db
+*.sqlite3
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+
+# Model weights and checkpoints
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# MLflow and experiment tracking
+mlruns/
+mlartifacts/
+results/
+tests/
+
+# Results and logs
+results/
+logs/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/ 
