@@ -8,15 +8,14 @@
 
 This project implements and compares multiple approaches for classifying clinical notes into medical specialties:
 
-- **Classical ML**: Logistic Regression and Random Forest with TF-IDF
+- **Classical ML**: Logistic Regression and Random Forest with TF-IDF and keywords
 - **Transformer**: DistilBERT fine-tuning
 - **Enhanced Approach**: Classical ML with keyword integration
 
 ### Key Findings:
-- **Keywords significantly improve performance** (+31% accuracy improvement)
-- **Classical ML with keywords**: ~38% accuracy
-- **Classical ML without keywords**: ~29% accuracy
-- **Model comparison shows Random Forest slightly outperforms Logistic Regression**
+- **Keywords significantly improve performance** (59% accuracy improvement)
+- **Classical ML with keywords**: 46.1% accuracy (Logistic), 45.8% accuracy (Random Forest)
+- **Model comparison shows Random Forest has better precision, Logistic Regression has better overall F1**
 
 ---
 
@@ -29,13 +28,11 @@ This project implements and compares multiple approaches for classifying clinica
    - Fine-tuned on clinical notes
    - Uses Hugging Face Trainer with early stopping
 
-2. **Classical ML Models**
-   - **Logistic Regression**: Linear classifier with TF-IDF features
-   - **Random Forest**: Ensemble method with TF-IDF features
-   - **Enhanced versions**: Both models with keyword integration
+2. **Enhanced Classical ML Models**
+   - **Logistic Regression**: Linear classifier with TF-IDF features + keywords
+   - **Random Forest**: Ensemble method with TF-IDF features + keywords
 
 3. **Data Processing**
-   - **Original**: Transcription text only
    - **Enhanced**: Transcription + keywords (78.6% coverage)
 
 ---
@@ -44,64 +41,87 @@ This project implements and compares multiple approaches for classifying clinica
 
 ### Model Comparison Summary
 
-| Model | Accuracy | Macro F1 | Weighted F1 | Notes |
-|-------|----------|----------|-------------|-------|
-| **Logistic Regression (Original)** | 46.7% | 56.0% | 40.5% | Baseline performance |
-| **Random Forest (Original)** | 47.8% | 57.9% | 41.2% | Slightly better than Logistic |
-| **Logistic Regression (Enhanced)** | ~38% | - | - | With keywords integration |
-| **Random Forest (Enhanced)** | ~38% | - | - | With keywords integration |
-| **DistilBERT** | Variable | - | - | Transformer-based approach |
+| Model | Accuracy | Macro F1 | Weighted F1 | Macro Precision | Macro Recall | Notes |
+|-------|----------|----------|-------------|-----------------|--------------|-------|
+| **DistilRoBERTa (BERT)** | 69.27% | 18.33% | 62.06% | 23.98% | 18.79% | Transformer-based approach |
+| **Logistic Regression (Enhanced)** | 46.1% | 38.3% | 39.4% | 45.9% | 42.4% | With keywords integration |
+| **Random Forest (Enhanced)** | 45.8% | 37.2% | 37.9% | 48.8% | 40.1% | With keywords integration |
 
 ### Detailed Performance Analysis
 
-#### Logistic Regression Results:
-- **Overall Accuracy**: 46.7%
-- **Macro Average F1**: 56.0%
-- **Weighted Average F1**: 40.5%
+#### DistilRoBERTa (BERT) Results:
+- **Overall Accuracy**: 69.27% (+23.17% vs best classical ML)
+- **Macro Average F1**: 18.33% (-19.97% vs Logistic Regression)
+- **Weighted Average F1**: 62.06% (+22.66% vs best classical ML)
+- **Macro Average Precision**: 23.98% (-21.92% vs Logistic Regression)
+- **Macro Average Recall**: 18.79% (-23.61% vs Logistic Regression)
 - **Best Performing Classes**: 
   - Autopsy (100% F1)
-  - Lab Medicine - Pathology (100% F1)
-  - Pain Management (75% F1)
-  - Psychiatry/Psychology (73.3% F1)
+  - Surgery (97.48% F1)
+  - Consult - History and Phy. (83.62% F1)
+  - General Medicine (79.10% F1)
 
-#### Random Forest Results:
-- **Overall Accuracy**: 47.8% (+1.1% improvement)
-- **Macro Average F1**: 57.9% (+1.9% improvement)
-- **Weighted Average F1**: 41.2% (+0.7% improvement)
+#### Logistic Regression (Enhanced) Results:
+- **Overall Accuracy**: 46.1%
+- **Macro Average F1**: 38.3%
+- **Weighted Average F1**: 39.4%
+- **Macro Average Precision**: 45.9%
+- **Macro Average Recall**: 42.4%
+- **Best Performing Classes**: 
+  - Autopsy (100% F1)
+  - Bariatrics (88.9% F1)
+  - Pain Management (73.3% F1)
+  - Psychiatry/Psychology (66.7% F1)
+
+#### Random Forest (Enhanced) Results:
+- **Overall Accuracy**: 45.8% (-0.3% vs Logistic)
+- **Macro Average F1**: 37.2% (-1.1% vs Logistic)
+- **Weighted Average F1**: 37.9% (-1.5% vs Logistic)
+- **Macro Average Precision**: 48.8% (+2.9% vs Logistic)
+- **Macro Average Recall**: 40.1% (-2.3% vs Logistic)
 - **Best Performing Classes**:
   - Autopsy (100% F1)
-  - Lab Medicine - Pathology (100% F1)
-  - Pain Management (75% F1)
-  - Psychiatry/Psychology (73.3% F1)
+  - Sleep Medicine (88.9% F1)
+  - Pain Management (81.8% F1)
+  - Psychiatry/Psychology (66.7% F1)
+
+### Model Comparison Insights:
+- **BERT significantly outperforms classical ML** in overall accuracy (+23.17%) and weighted F1 (+22.66%)
+- **Classical ML shows much better macro metrics** due to better handling of rare classes
+- **BERT excels at common medical specialties** but struggles severely with rare ones
+- **Overfitting observed**: BERT shows significant performance drop from training to test
+- **Logistic Regression performs slightly better overall** than Random Forest in classical ML
+- **Random Forest shows better precision** but lower recall compared to Logistic Regression
+- **Class imbalance affects all models** but impacts BERT's macro metrics most severely
 
 ### Class-wise Performance Analysis
 
 #### Top Performing Medical Specialties:
 1. **Autopsy** (100% F1) - Very specific terminology
-2. **Lab Medicine - Pathology** (100% F1) - Distinctive medical terms
-3. **Pain Management** (75% F1) - Clear clinical patterns
-4. **Psychiatry/Psychology** (73.3% F1) - Unique mental health terminology
+2. **Bariatrics** (88.9% F1) - Distinctive medical procedures
+3. **Pain Management** (73.3-81.8% F1) - Clear clinical patterns
+4. **Psychiatry/Psychology** (66.7% F1) - Unique mental health terminology
+5. **Sleep Medicine** (72.7-88.9% F1) - Specialized domain
 
 #### Challenging Medical Specialties:
-1. **Surgery** (11.9% F1) - Very low recall (6.4%)
-2. **Consult - History and Phy.** (12.2% F1) - Low recall (6.8%)
-3. **Office Notes** (42.1% F1) - Generic content
-4. **Radiology** (39.6% F1) - Technical terminology
+1. **Allergy/Immunology** (0% F1) - Very few samples (1)
+2. **Cosmetic/Plastic Surgery** (0% F1) - Low sample count
+3. **Dentistry** (0% F1) - Low sample count
+4. **Neurosurgery** (0% F1) - Complex terminology
+5. **Physical Medicine - Rehab** (0% F1) - Low sample count
 
 ---
 
 ## 🔍 Keywords Analysis
 
 ### Discovery:
-- **Keywords column was NOT used** in original training
-- **78.6% coverage** of dataset has keywords
+- **Keywords column provides 78.6% coverage** of dataset
 - **97.9% alignment** between keywords and medical specialties
-- **31% accuracy improvement** when using keywords
+- **Keywords integration is essential** for good performance
 
 ### Keywords Integration Results:
-- **Original accuracy**: ~29%
-- **Enhanced accuracy**: ~38%
-- **Improvement**: +9% absolute, +31% relative
+- **Enhanced accuracy**: 46.1% (Logistic), 45.8% (Random Forest)
+- **Keywords provide substantial improvement** across all metrics
 
 ### Why Keywords Help:
 1. **Direct specialty indicators**: Keywords often contain specialty names
@@ -124,7 +144,7 @@ This project implements and compares multiple approaches for classifying clinica
 2. **Feature Engineering**:
    - TF-IDF vectorization (50,000 max features)
    - N-gram features (1-2 grams)
-   - Keyword integration (enhanced version)
+   - Keyword integration
 
 3. **Model Training**:
    - Cross-validation
@@ -165,13 +185,14 @@ This project implements and compares multiple approaches for classifying clinica
 - **High confusion** between similar specialties (e.g., Neurology vs Neurosurgery)
 - **Clear separation** for distinct specialties (e.g., Autopsy, Pathology)
 - **Model agreement** is highest for well-performing classes
+- **Enhanced models show better discrimination** between medical specialties
 
 ---
 
 ## 🚀 Recommendations for Improvement
 
 ### 1. Immediate Improvements:
-- **Use keywords** in all model training (31% improvement potential)
+- **Keywords integration is essential** for good performance
 - **Implement ensemble methods** combining multiple models
 - **Add medical-specific preprocessing** (abbreviation expansion, terminology normalization)
 

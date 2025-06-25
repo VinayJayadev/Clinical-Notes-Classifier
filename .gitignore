@@ -49,4 +49,7 @@ Thumbs.db
 *.egg
 *.egg-info/
 dist/
-build/ 
+build/
+
+# Clinical code workspace
+Clinical.code-workspace 
