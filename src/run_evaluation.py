@@ -33,7 +33,6 @@ for text in test_dataset['text']:
 
 # --- Display Results ---
 
-# --- FIX IS HERE ---
 # Find the unique labels that are actually present in the true labels and predictions
 active_labels = np.union1d(true_labels, predictions)
 # Create a list of target names that corresponds *only* to the active labels
