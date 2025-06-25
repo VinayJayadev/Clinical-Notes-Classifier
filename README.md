@@ -224,7 +224,7 @@ This project implements and compares multiple approaches for classifying clinica
 
 1. **Train BERT Model**:
    ```bash
-   python src/train.py
+   poetry run python src/train.py
    ```
    - Trains DistilRoBERTa on clinical notes
    - Saves best model to `./results/best_model/`
@@ -232,7 +232,7 @@ This project implements and compares multiple approaches for classifying clinica
 
 2. **Test BERT Model**:
    ```bash
-   python src/test_bert.py
+   poetry run python src/test_bert.py
    ```
    - Evaluates trained BERT model on test set
    - Generates performance metrics and visualizations
@@ -240,7 +240,7 @@ This project implements and compares multiple approaches for classifying clinica
 
 3. **Start BERT Web Interface**:
    ```bash
-   streamlit run src/app.py
+   poetry run streamlit run src/app.py
    ```
    - Interactive web app for BERT predictions
    - Real-time clinical note classification
@@ -250,23 +250,23 @@ This project implements and compares multiple approaches for classifying clinica
 
 1. **Train Classical ML Models**:
    ```bash
-   python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type logistic
-   python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type random_forest
+   poetry run python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type logistic
+   poetry run python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type random_forest
    ```
 
 2. **Run Model Comparison**:
    ```bash
-   python src/compare_models.py
+   poetry run python src/compare_models.py
    ```
 
 3. **Start Classical ML Web Interface**:
    ```bash
-   streamlit run src/classical_ml_app.py
+   poetry run streamlit run src/classical_ml_app.py
    ```
 
 4. **Run Complete Pipeline**:
    ```bash
-   python src/run_all.py
+   poetry run python src/run_all.py
    ```
 
 ### Testing with Sample Data:
