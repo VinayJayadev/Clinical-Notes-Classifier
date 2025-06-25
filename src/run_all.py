@@ -16,13 +16,16 @@ def is_port_in_use(port):
 
 def kill_process_on_port(port):
     """Kill process running on specified port"""
-    for proc in psutil.process_iter(['pid', 'name', 'connections']):
+    for proc in psutil.process_iter(['pid', 'name']):
         try:
-            for conn in proc.connections():
-                if conn.laddr.port == port:
+            # Get connections for this process
+            connections = proc.connections()
+            for conn in connections:
+                if hasattr(conn, 'laddr') and conn.laddr.port == port:
                     os.kill(proc.pid, signal.SIGTERM)
                     time.sleep(1)  # Give it time to terminate
-        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    break
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
 def run_mlflow_server():

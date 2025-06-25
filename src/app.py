@@ -53,8 +53,9 @@ def predict(text, model, tokenizer):
         )
         
         # Move inputs to the same device as the model
-        device = next(model.parameters()).device
-        inputs = {k: v.to(device) for k, v in inputs.items()}
+        device = next(model.parameters()).device  #Accesses the device attribute of that parameter, which will be either
+        inputs = {k: v.to(device) for k, v in inputs.items()}  #iterates through the inputs dictionary 
+                                                                #(which typically contains input_ids, attention_mask, etc
         
         # Get prediction
         with torch.no_grad():

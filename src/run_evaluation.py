@@ -27,13 +27,13 @@ predictions = []
 for text in test_dataset['text']:
     inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512).to(device)
     with torch.no_grad():
-        logits = model(**inputs).logits
+        logits = model(**inputs).logits   #unpacks the dictionary into keyword arguments
     predicted_class_id = torch.argmax(logits, dim=1).item()
     predictions.append(predicted_class_id)
 
 # --- Display Results ---
 
-# --- FIX IS HERE ---
+
 # Find the unique labels that are actually present in the true labels and predictions
 active_labels = np.union1d(true_labels, predictions)
 # Create a list of target names that corresponds *only* to the active labels

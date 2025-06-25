@@ -97,11 +97,12 @@ def compute_metrics(eval_pred):
 # --- Training ---
 print("Setting up training...")
 
-class SafeCheckpointCallback(TrainerCallback):
+class SafeCheckpointCallback(TrainerCallback):    #Callbacks allow you to inject custom logic at various stages of the training loop
     def on_save(self, args, state, control, **kwargs):
         try:
-            # Add a small delay before saving
+            # Adding a small delay before saving
             time.sleep(1)
+            #returns the control object, which allows to modify the training process
             return control
         except Exception as e:
             print(f"Warning: Error during checkpoint save: {str(e)}")
@@ -112,7 +113,7 @@ training_args = TrainingArguments(
     num_train_epochs=5,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
-    warmup_steps=500,
+    warmup_steps=500, #gradually increases from 0 to learning_rate over the steps
     weight_decay=0.01,
     logging_dir="./logs",
     logging_steps=50,
