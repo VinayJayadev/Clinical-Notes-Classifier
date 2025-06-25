@@ -52,4 +52,7 @@ dist/
 build/
 
 # Clinical code workspace
+Clinical.code-workspace
+
+# VS Code workspace file
 Clinical.code-workspace 
