@@ -220,24 +220,53 @@ This project implements and compares multiple approaches for classifying clinica
 
 ### Running the Models:
 
+#### **BERT (DistilRoBERTa) Models:**
+
+1. **Train BERT Model**:
+   ```bash
+   python src/train.py
+   ```
+   - Trains DistilRoBERTa on clinical notes
+   - Saves best model to `./results/best_model/`
+   - Uses early stopping and validation
+
+2. **Test BERT Model**:
+   ```bash
+   python src/test_bert.py
+   ```
+   - Evaluates trained BERT model on test set
+   - Generates performance metrics and visualizations
+   - Creates reports in `./results/bert_evaluation/`
+
+3. **Start BERT Web Interface**:
+   ```bash
+   streamlit run src/app.py
+   ```
+   - Interactive web app for BERT predictions
+   - Real-time clinical note classification
+   - Confidence scores and top predictions
+
+#### **Classical ML Models:**
+
 1. **Train Classical ML Models**:
    ```bash
-   poetry run python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type logistic --use_keywords
+   python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type logistic
+   python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type random_forest
    ```
 
 2. **Run Model Comparison**:
    ```bash
-   poetry run python src/compare_models.py
+   python src/compare_models.py
    ```
 
-3. **Start Web Interface**:
+3. **Start Classical ML Web Interface**:
    ```bash
-   poetry run streamlit run src/classical_ml_app.py
+   streamlit run src/classical_ml_app.py
    ```
 
 4. **Run Complete Pipeline**:
    ```bash
-   poetry run python src/run_all.py
+   python src/run_all.py
    ```
 
 ### Testing with Sample Data:
@@ -245,54 +274,13 @@ This project implements and compares multiple approaches for classifying clinica
 - **Covers 15+ medical specialties**
 - **Web interface** for interactive testing
 
+### Model Files Location:
+- **BERT Model**: `./results/best_model/`
+- **Classical ML Models**: `./results/classical_ml/`
+- **Evaluation Results**: `./results/bert_evaluation/` and `./results/classical_ml/`
+
 ---
 
 ## 📁 Project Structure
 
 ```
-Clinical Note Processing/
-├── src/
-│   ├── train.py                          # DistilBERT training
-│   ├── train_classical_ml.py             # Original classical ML
-│   ├── train_classical_ml_enhanced.py    # Enhanced with keywords
-│   ├── compare_models.py                 # Model comparison
-│   ├── app.py                           # DistilBERT web app
-│   ├── classical_ml_app.py              # Classical ML web app
-│   ├── data_loader.py                   # Original data loader
-│   ├── enhanced_data_loader.py          # Enhanced with keywords
-│   └── run_all.py                       # Complete pipeline
-├── data/
-│   ├── mtsamples.csv                    # Main dataset
-│   └── sample_notes.txt                 # Test samples
-├── results/
-│   ├── best_model/                      # DistilBERT model
-│   └── classical_ml/                    # Classical ML models
-└── CLINICAL_NOTE_CLASSIFICATION_RESULTS.md
-```
-
----
-
-## 🎯 Conclusion
-
-This project successfully demonstrates:
-
-1. **Classical ML can achieve reasonable performance** (~47% accuracy) on medical text classification
-2. **Keywords are crucial** for medical text classification (+31% improvement)
-3. **Random Forest slightly outperforms** Logistic Regression
-4. **Model ensemble approaches** show promise for further improvement
-
-### Key Takeaways:
-- **Data quality matters**: Keywords provide significant performance boost
-- **Feature engineering is important**: TF-IDF + medical preprocessing works well
-- **Class imbalance is a challenge**: Some specialties are much harder to classify
-- **Domain-specific approaches** (medical terminology, abbreviations) improve results
-
-### Future Work:
-- Implement medical-specific BERT models
-- Add more sophisticated feature engineering
-- Explore ensemble methods
-- Expand dataset with more balanced classes
-
----
-
-**Note**: This analysis is based on the MTSamples dataset with 39 medical specialties. Results may vary with different datasets or medical domains. 
