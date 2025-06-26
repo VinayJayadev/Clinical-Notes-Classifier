@@ -304,7 +304,7 @@ def test_bert_model(
     for i, metric in enumerate(class_metrics[:10]):
         markdown_report += f"| {i+1} | {metric['class']} | {metric['f1']:.3f} | {metric['precision']:.3f} | {metric['recall']:.3f} | {metric['support']} |\n"
 
-    markdown_report += f"""
+    markdown_report += """
 ## Bottom 10 Performing Classes
 
 | Rank | Class | F1 Score | Precision | Recall | Support |
