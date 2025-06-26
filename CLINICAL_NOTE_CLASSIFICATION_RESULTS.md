@@ -292,6 +292,8 @@ This project successfully demonstrates:
 - Add more sophisticated feature engineering
 - Explore ensemble methods
 - Expand dataset with more balanced classes
+- REST API endpoints
+- Containerization using Docker
 
 ---
 
