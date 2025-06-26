@@ -1,7 +1,7 @@
 ﻿# Clinical Note Classification - Complete Results & Analysis
 
-**Project**: Clinical Note Classification using Classical ML and Transformers  
-**Date**: December 2024  
+**Project**: Clinical Note Classification using Classical ML and Transformers
+**Date**: December 2024
 **Dataset**: MTSamples (4,999 clinical notes across 39 medical specialties)
 
 ## 📊 Executive Summary
@@ -55,7 +55,7 @@ This project implements and compares multiple approaches for classifying clinica
 - **Weighted Average F1**: 62.06% (+22.66% vs best classical ML)
 - **Macro Average Precision**: 23.98% (-21.92% vs Logistic Regression)
 - **Macro Average Recall**: 18.79% (-23.61% vs Logistic Regression)
-- **Best Performing Classes**: 
+- **Best Performing Classes**:
   - Autopsy (100% F1)
   - Surgery (97.48% F1)
   - Consult - History and Phy. (83.62% F1)
@@ -67,7 +67,7 @@ This project implements and compares multiple approaches for classifying clinica
 - **Weighted Average F1**: 39.4%
 - **Macro Average Precision**: 45.9%
 - **Macro Average Recall**: 42.4%
-- **Best Performing Classes**: 
+- **Best Performing Classes**:
   - Autopsy (100% F1)
   - Bariatrics (88.9% F1)
   - Pain Management (73.3% F1)
@@ -249,23 +249,23 @@ This project implements and compares multiple approaches for classifying clinica
 #### **Classical ML Models:**
 
 1. **Train Classical ML Models**:
-   ```bash
+```bash
    poetry run python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type logistic
    poetry run python src/train_classical_ml_enhanced.py --data_path ./data/mtsamples.csv --model_type random_forest
-   ```
+```
 
 2. **Run Model Comparison**:
-   ```bash
+```bash
    poetry run python src/compare_models.py
    ```
 
 3. **Start Classical ML Web Interface**:
-   ```bash
+```bash
    poetry run streamlit run src/classical_ml_app.py
-   ```
+```
 
 4. **Run Complete Pipeline**:
-   ```bash
+```bash
    poetry run python src/run_all.py
    ```
 
