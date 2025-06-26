@@ -278,5 +278,3 @@ This project implements and compares multiple approaches for classifying clinica
 - **BERT Model**: `./results/best_model/`
 - **Classical ML Models**: `./results/classical_ml/`
 - **Evaluation Results**: `./results/bert_evaluation/` and `./results/classical_ml/`
-
-
