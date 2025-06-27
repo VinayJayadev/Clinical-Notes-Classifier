@@ -148,7 +148,7 @@ This project implements and compares multiple approaches for classifying clinica
 
 3. **Model Training**:
    - Cross-validation
-   - Hyperparameter tuning
+   - Hyperparameter 
    - Class balancing
 
 ### Model Configurations:
