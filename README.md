@@ -1,5 +1,6 @@
 ﻿# Clinical Note Classification - Complete Results & Analysis
 
+**Total Samples: 4,999 clinical notes
 **Project**: Clinical Note Classification using Classical ML and Transformers
 **Date**: December 2024
 **Dataset**: MTSamples (4,999 clinical notes across 39 medical specialties)
